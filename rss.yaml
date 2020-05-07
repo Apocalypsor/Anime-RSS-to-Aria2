@@ -1,0 +1,11 @@
+aria2:
+  host:
+  port:
+  secret:
+
+Anime:
+  - series: "格莱普尼尔"
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2217&subgroupid=202
+    source: "Mikan"
+    regex: ".*1080p.*"
+    path: "./downloads/格莱普尼尔/"
