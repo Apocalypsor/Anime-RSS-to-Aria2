@@ -1,0 +1,40 @@
+name: Anime RSS to Aria2
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: 0 * * * *
+   
+jobs:
+  AR2A:
+    name: Anime RSS to Aria2
+    runs-on: ubuntu-latest 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - name: Install dependencies 
+      run: |
+        python -m pip install --upgrade pip
+        pip install wheel
+        pip install -r requirements.txt
+    - name: Download
+      env:
+        ARIA2_HOST: ${{ secrets.ARIA2_HOST }}
+        ARIA2_PORT: ${{ secrets.ARIA2_PORT }}
+        ARIA2_SECRET: ${{ secrets.ARIA2_SECRET }}
+      run: |
+        python ./main.py
+    - uses: autosuite/autocommit@master
+      with:
+        commit-message: Update
+        add-options: -A
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.REPO_TOKEN }}
