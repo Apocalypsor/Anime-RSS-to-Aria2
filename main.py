@@ -1,7 +1,6 @@
 import os
 
 import aria2p
-import requests
 import yaml
 
 from AR2A.anime import Anime
@@ -27,8 +26,10 @@ def createAria2(configFile):
         a_secret = os.getenv('ARIA2_SECRET')
 
     else:
-        print('Error Aria2 configuration!')
-        exit()
+        print('Error Aria2 configuration! Use local Aria2 client.')
+        a_host = '127.0.0.1'
+        a_port = '6800'
+        a_secret = ''
 
     aria2 = aria2p.API(
         aria2p.Client(
@@ -41,42 +42,15 @@ def createAria2(configFile):
     return aria2
 
 
-def send2Aria2(urls, aria2):
-    for path in urls.keys():
-        for url in urls[path]:
-            if 'magnet:?xt=' in url:
-                try:
-                    aria2.add_magnets(url, options={'dir': path})
-                except:
-                    print('添加失败 Torrent: ', url)
-                else:
-                    print('添加成功 Torrent: ', url)
-
-            else:
-                r = requests.get(url)
-                with open('tmp.torrent', 'wb') as f:
-                    f.write(r.content)
-                try:
-                    aria2.add_torrent('tmp.torrent', options={'dir': path})
-                except:
-                    print('添加失败 Torrent: ', url)
-                    os.remove('tmp.torrent')
-                else:
-                    print('添加成功 Torrent: ', url)
-                    os.remove('tmp.torrent')
-
-
 def main():
     rssFile = 'rss.yaml'
     dataFile = 'data.sqlite'
 
     aria2 = createAria2(rssFile)
 
-    ani = Anime(rssFile, dataFile)
+    ani = Anime(rssFile, dataFile, aria2)
 
     ani.readRSS()
-
-    send2Aria2(ani.urls, aria2)
 
 
 if __name__ == "__main__":
