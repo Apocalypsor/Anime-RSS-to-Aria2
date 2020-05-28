@@ -28,7 +28,7 @@ def createAria2(configFile):
     else:
         print('Error Aria2 configuration! Use local Aria2 client.')
         a_host = '127.0.0.1'
-        a_port = '6800'
+        a_port = 6800
         a_secret = ''
 
     aria2 = aria2p.API(
