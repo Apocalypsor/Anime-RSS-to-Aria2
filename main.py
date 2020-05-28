@@ -44,17 +44,26 @@ def createAria2(configFile):
 def send2Aria2(urls, aria2):
     for path in urls.keys():
         for url in urls[path]:
-            r = requests.get(url)
-            with open('tmp.torrent', 'wb') as f:
-                f.write(r.content)
-            try:
-                aria2.add_torrent('tmp.torrent', options={'dir': path})
-            except:
-                print('添加失败 Torrent: ', url)
-                os.remove('tmp.torrent')
+            if 'magnet:?xt=' in url:
+                try:
+                    aria2.add_magnets(url, options={'dir': path})
+                except:
+                    print('添加失败 Torrent: ', url)
+                else:
+                    print('添加成功 Torrent: ', url)
+
             else:
-                print('添加成功 Torrent: ', url)
-                os.remove('tmp.torrent')
+                r = requests.get(url)
+                with open('tmp.torrent', 'wb') as f:
+                    f.write(r.content)
+                try:
+                    aria2.add_torrent('tmp.torrent', options={'dir': path})
+                except:
+                    print('添加失败 Torrent: ', url)
+                    os.remove('tmp.torrent')
+                else:
+                    print('添加成功 Torrent: ', url)
+                    os.remove('tmp.torrent')
 
 
 def main():

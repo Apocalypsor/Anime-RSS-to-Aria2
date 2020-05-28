@@ -57,6 +57,8 @@ class Anime():
 
             if s['source'].lower() == 'mikan':
                 self.readMikan(s)
+            elif s['source'].lower() == 'rarbg':
+                self.readRarbg(s)
 
     def readMikan(self, a):
         entries = feedparser.parse(a['url'])['entries']
@@ -64,12 +66,23 @@ class Anime():
         session = self.DBSession()
 
         for r in entries:
-            if regex.match(r['id']) and not session.query(exists().where(Downloaded.title == r['title'])).scalar():
+            if regex.match(r['title']) and not session.query(exists().where(Downloaded.title == r['title'])).scalar():
                 for l in r['links']:
                     if l['type'] == 'application/x-bittorrent':
                         self.urls[a['path']].append(l['href'])
                         self.addDownload(session, a['series'], r['title'], l['href'])
                         session.close()
+
+    def readRarbg(self, a):
+        entries = feedparser.parse(a['url'])['entries']
+        regex = re.compile(a['regex'])
+        session = self.DBSession()
+
+        for r in entries:
+            if regex.match(r['title']) and not session.query(exists().where(Downloaded.title == r['title'])).scalar():
+                self.urls[a['path']].append(r['link'])
+                self.addDownload(session, a['series'], r['title'], r['link'])
+                session.close()
 
     def addDownload(self, session, anime, title, link):
         ticks = time.time()

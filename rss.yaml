@@ -4,8 +4,13 @@ aria2:
   secret:
 
 Anime:
-  - series: "格莱普尼尔"
+  - series: 格莱普尼尔
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2217&subgroupid=202
-    source: "Mikan"
-    regex: ".*1080p.*"
-    path: "./downloads/格莱普尼尔/"
+    source: Mikan
+    regex: .*1080p.*
+    path: ./downloads/格莱普尼尔/
+  - series: 神盾局特工
+    url: https://rarbg.to/rssdd_magnet.php?categories=41
+    source: Rarbg
+    regex: Marvels\.Agents\.of\.S\.H\.I\.E\.L\.D\.S07E[0-9]{2}\.1080p\.WEB\.H264-MEMENTO\[rartv\]
+    path: ./downloads/神盾局特工/
