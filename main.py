@@ -13,6 +13,7 @@ def createAria2(configFile):
         with open(configFile, 'r', encoding='UTF-8') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
             conf = config['aria2']
+
     else:
         print('No configuration!')
         exit()
