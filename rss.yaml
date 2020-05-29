@@ -1,7 +1,12 @@
 aria2:
-  host:
-  port:
-  secret:
+  host: https://aria2-605.herokuapp.com
+  port: 443
+  secret: Apocalypse
+
+telegrambot:
+  enable: true
+  token: 834022545:AAH-LPPWlFOCq868ai0S9kH_n2arEoAkqk4
+  chat_id: -1001259296192
 
 Anime:
   - series: 格莱普尼尔
