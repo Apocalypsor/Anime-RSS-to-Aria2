@@ -8,6 +8,8 @@ telegrambot:
   token: 834022545:AAH-LPPWlFOCq868ai0S9kH_n2arEoAkqk4
   chat_id: -1001259296192
 
+base_url: https://goindexd.917605.xyz/1:/
+
 Anime:
   - series: 格莱普尼尔
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2217&subgroupid=202

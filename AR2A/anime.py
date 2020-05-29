@@ -68,6 +68,11 @@ class Anime():
             else:
                 self.telegram = None
 
+            if config['base_url']:
+                self.url = config['base_url']
+            else:
+                self.url = None
+
         if not os.path.exists(self.dataFile):
             open(self.dataFile, 'w').close()
 
@@ -153,13 +158,16 @@ class Anime():
                     return True
 
     def send2Telegram(self, title, series):
-        msg = '更新剧集：*' + title + '*\n#' + series
+        if self.url:
+            msg = '🌟 更新剧集：*' + title + '*\n\n' + '💡 直达链接: ' + self.url + series + '/' + '\n\n#' + series
+        else:
+            msg = '🌟 更新剧集：*' + title + '*\n#' + series
 
         url = 'https://api.telegram.org/bot' + self.telegram['token'] + '/sendMessage'
         payload = {
             'chat_id': self.telegram['chat_id'],
             'text': msg,
-            'parse_mode': 'markdown'
+            'parse_mode': 'markdown',
         }
 
         r = requests.post(url, data=payload)
