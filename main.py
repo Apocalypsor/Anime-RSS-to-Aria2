@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import os
 
 import aria2p
@@ -11,9 +13,9 @@ def createAria2(configFile):
         with open(configFile, 'r', encoding='UTF-8') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
             conf = config['aria2']
-
     else:
         print('No configuration!')
+        exit()
 
     if conf['host'] and conf['port'] and conf['secret']:
         a_host = conf['host']
@@ -50,7 +52,7 @@ def main():
 
     ani = Anime(rssFile, dataFile, aria2)
 
-    ani.readRSS()
+    ani.readRSS(send=True)
 
 
 if __name__ == "__main__":
