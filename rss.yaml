@@ -1,5 +1,5 @@
 aria2:
-  host: https://aria2-605.herokuapp.com
+  host: https://aria2-233.herokuapp.com
   port: 443
   secret: Apocalypse
 
