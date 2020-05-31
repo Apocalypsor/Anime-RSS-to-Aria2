@@ -168,6 +168,7 @@ class Anime():
             'chat_id': self.telegram['chat_id'],
             'text': msg,
             'parse_mode': 'markdown',
+            'disable_web_page_preview': 'true'
         }
 
         r = requests.post(url, data=payload)
