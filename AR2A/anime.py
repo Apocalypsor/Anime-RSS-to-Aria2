@@ -112,12 +112,16 @@ class Anime():
         session = self.DBSession()
 
         for r in entries:
-            if regex.match(r['title']) and not session.query(exists().where(Downloaded.title == r['title'])).scalar():
-                if self.send2Aria2(a['path'], r['link']):
-                    self.addDownload(session, a['series'], r['title'], r['link'])
-                    session.close()
+            try:
+                r['title'] = regex.match(r['title']).group(1)
+                if not session.query(exists().where(Downloaded.title == r['title'])).scalar():
+                    if self.send2Aria2(a['path'], r['link']):
+                        self.addDownload(session, a['series'], r['title'], r['link'])
+                        session.close()
 
-                    self.send2Telegram(r['title'], a['series'])
+                        self.send2Telegram(r['title'], a['series'])
+            except:
+                pass
 
     def addDownload(self, session, anime, title, link):
         ticks = time.time()
