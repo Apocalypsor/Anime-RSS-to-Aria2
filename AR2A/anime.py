@@ -105,7 +105,7 @@ class Anime():
                             self.addDownload(session, a['series'], r['title'], l['href'])
                             session.close()
 
-                            self.send2Telegram(r['title'], a['series'])
+                            self.send2Telegram(r['title'], a['type'], a['series'])
 
     # 需配合 https://github.com/banteg/rarbg 食用
     def readRarbg(self, a):
@@ -121,7 +121,7 @@ class Anime():
                         self.addDownload(session, a['series'], r['title'], r['link'])
                         session.close()
 
-                        self.send2Telegram(r['title'], a['series'])
+                        self.send2Telegram(r['title'], a['type'], a['series'])
             except:
                 pass
 
@@ -163,11 +163,11 @@ class Anime():
                     os.remove('tmp.torrent')
                     return True
 
-    def send2Telegram(self, title, series):
+    def send2Telegram(self, title, type, series):
         if self.url:
-            msg = '🌟 更新剧集：*' + title + '*\n\n' + '💡 直达链接：' + self.url + series + '/' + '\n\n#' + series
+            msg = '🌟 更新剧集：*' + title + '*\n\n' + '💡 直达链接：' + self.url + series + '/' + '\n\n#' + type + ' #' + series
         else:
-            msg = '🌟 更新剧集：*' + title + '*\n#' + series
+            msg = '🌟 更新剧集：*' + title + '*\n#' + type + ' #' + series
 
         url = 'https://api.telegram.org/bot' + self.telegram['token'] + '/sendMessage'
         payload = {
