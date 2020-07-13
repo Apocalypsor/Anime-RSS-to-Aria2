@@ -156,12 +156,12 @@ class Anime():
                     self.aria2.add_torrent('tmp.torrent', options={'dir': path})
                 except Exception as e:
                     print('添加失败 Torrent: ', url, '\n', e)
-                    os.remove('tmp.torrent')
                     return False
                 else:
                     print('添加成功 Torrent: ', url)
-                    os.remove('tmp.torrent')
                     return True
+                finally:
+                    os.remove('tmp.torrent')
 
     def send2Telegram(self, title, type, series):
         if self.url:
