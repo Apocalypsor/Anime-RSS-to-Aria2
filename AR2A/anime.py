@@ -154,7 +154,7 @@ class Anime():
 
                 try:
                     self.aria2.add_torrent('tmp.torrent', options={'dir': path})
-                except:
+                except Exception as e:
                     print('添加失败 Torrent: ', url, '\n', e)
                     os.remove('tmp.torrent')
                     return False
