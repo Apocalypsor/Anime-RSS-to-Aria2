@@ -140,8 +140,8 @@ class Anime():
             if 'magnet:?xt=' in url:
                 try:
                     self.aria2.add_magnet(url, options={'dir': path})
-                except:
-                    print('添加失败 Magnet: ', url)
+                except Exception as e:
+                    print('添加失败 Magnet: ', url, '\n', e)
                     return False
                 else:
                     print('添加成功 Magnet: ', url)
@@ -155,7 +155,7 @@ class Anime():
                 try:
                     self.aria2.add_torrent('tmp.torrent', options={'dir': path})
                 except:
-                    print('添加失败 Torrent: ', url)
+                    print('添加失败 Torrent: ', url, '\n', e)
                     os.remove('tmp.torrent')
                     return False
                 else:
