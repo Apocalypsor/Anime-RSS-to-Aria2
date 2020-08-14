@@ -11,24 +11,6 @@ telegrambot:
 base_url: https://goindexd.917605.xyz/1:/
 
 Anime:
-  - series: 大欺诈师
-    type: 动漫
-    url: https://mikanani.me/RSS/Bangumi?bangumiId=2242&subgroupid=357
-    source: Mikan
-    regex: .*简体内嵌.*
-    path: ./downloads/大欺诈师/
-  - series: 魔物娘的医生
-    type: 动漫
-    url: https://mikanani.me/RSS/Bangumi?bangumiId=2254&subgroupid=202
-    source: Mikan
-    regex: .*1080p.*
-    path: ./downloads/魔物娘的医生/
-  - series: 彼得·格里尔的贤者时间
-    type: 动漫
-    url: https://mikanani.me/RSS/Bangumi?bangumiId=2257&subgroupid=552
-    source: Mikan
-    regex: .*1080p.*
-    path: ./downloads/彼得格里尔的贤者时间
   - series: 弩级战队HXEROS
     type: 动漫
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2255&subgroupid=203
