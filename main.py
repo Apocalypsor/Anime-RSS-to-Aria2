@@ -15,8 +15,7 @@ def createAria2(configFile):
             conf = config['aria2']
 
     else:
-        print('No configuration!')
-        exit()
+        sys.exit('No configuration!')
 
     if conf['host'] and conf['port'] and conf['secret']:
         a_host = conf['host']
