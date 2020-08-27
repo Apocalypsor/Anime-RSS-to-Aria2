@@ -11,9 +11,3 @@ telegrambot:
 base_url: https://goindexd.917605.xyz/1:/
 
 Anime:
-  - series: 神盾局特工
-    type: 美剧
-    url: https://rarbg.917605.xyz/search/Marvels.Agents.of.S.H.I.E.L.D.S07
-    source: Rarbg
-    regex: ^(Marvels\.Agents\.of\.S\.H\.I\.E\.L\.D.S07E\d{2}\.1080p\.AMZN\.WEBRip\.DDP5\.1\.x264-T6D\[rartv\]).*
-    path: ./downloads/神盾局特工/
