@@ -42,8 +42,12 @@ class Anime():
 
         with open(self.rssFile, 'r', encoding='UTF-8') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
-            self.rss = config['Anime']
-
+            if config['Anime']:
+                self.rss = config['Anime']
+            else:
+                print('Nothing Subscribed!')
+                exit()
+                
             if config['telegrambot']['enable']:
                 self.telegram = config['telegrambot']
 
