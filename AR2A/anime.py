@@ -2,6 +2,7 @@
 
 import os
 import re
+import sys
 import time
 
 import feedparser
@@ -45,26 +46,21 @@ class Anime():
             if config['Anime']:
                 self.rss = config['Anime']
             else:
-                print('Nothing Subscribed!')
-                exit()
+                sys.exit('Nothing Subscribed!')
                 
             if config['telegrambot']['enable']:
                 self.telegram = config['telegrambot']
 
                 if not self.telegram['token']:
-                    print('No Telegram Bot Token!')
-                    exit()
+                    sys.exit('No Telegram Bot Token!')
                 elif not self.telegram['chat_id']:
-                    print('No Telegram Chat ID!')
-                    exit()
+                    sys.exit('No Telegram Chat ID!')
 
             elif os.getenv('TELEGRAM_ENABLE') == 'true':
                 if not os.getenv('TELEGRAM_TOKEN'):
-                    print('No Telegram Bot Token!')
-                    exit()
+                    sys.exit('No Telegram Bot Token!')
                 elif not os.getenv('TELEGRAM_CHAT_ID'):
-                    print('No Telegram Chat ID!')
-                    exit()
+                    sys.exit('No Telegram Chat ID!')
                 else:
                     self.telegram['token'] = os.getenv('TELEGRAM_TOKEN')
                     self.telegram['chat_id'] = os.getenv('TELEGRAM_CHAT_ID')
