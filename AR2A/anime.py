@@ -107,7 +107,7 @@ class Anime():
 
                             self.send2Telegram(r['title'], a['type'], a['series'])
 
-    # 需配合 https://github.com/banteg/rarbg 食用
+    # 需配合 https://rssbg.now.sh 食用
     def readRarbg(self, a):
         entries = feedparser.parse(a['url'], request_headers={'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'})['entries']
         regex = re.compile(a['regex'])
