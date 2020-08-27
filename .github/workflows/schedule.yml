@@ -31,7 +31,7 @@ jobs:
         ARIA2_PORT: ${{ secrets.ARIA2_PORT }}
         ARIA2_SECRET: ${{ secrets.ARIA2_SECRET }}
       run: |
-        python ./main.py
+        python ./main.py || echo 'Check your configuration.'
     - uses: autosuite/autocommit@master
       with:
         commit-message: Update
