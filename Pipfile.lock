@@ -40,11 +40,11 @@
         },
         "feedparser": {
             "hashes": [
-                "sha256:351a08b59a373ad358226489750740f052e615bba093cfcc00e3bf742527979c",
-                "sha256:a13fb1f26a7da985b51e6d1e91102fb1b1e5eb5d550a192643049a527bb24b0d"
+                "sha256:6ca88edcaa43f428345968df903a87f020843eda5e28d7ea24a612158d61e74c",
+                "sha256:c9b436334258e718e224c5ef8a78088557e0d0382506360f702de10667ffde32"
             ],
             "index": "pypi",
-            "version": "==6.0.0"
+            "version": "==6.0.1"
         },
         "idna": {
             "hashes": [
