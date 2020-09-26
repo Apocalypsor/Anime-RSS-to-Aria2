@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
     - name: Set up Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: '3.x'
     - name: Install dependencies 
@@ -32,7 +32,7 @@ jobs:
         ARIA2_SECRET: ${{ secrets.ARIA2_SECRET }}
       run: |
         python ./main.py || echo 'Check your configuration.'
-    - uses: autosuite/autocommit@master
+    - uses: autosuite/autocommit@main
       with:
         commit-message: Update
         add-options: -A
