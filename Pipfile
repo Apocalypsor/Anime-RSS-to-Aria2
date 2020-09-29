@@ -11,6 +11,7 @@ requests = "*"
 feedparser = "*"
 PyYAML = "*"
 SQLAlchemy = "*"
+win32-setctime = "*"
 
 [requires]
 python_version = "3.8"
