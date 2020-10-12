@@ -11,3 +11,9 @@ telegrambot:
 base_url: https://gdindex.apocalypse.workers.dev/
 
 Anime:
+  - series: 魔法科高中的劣等生	
+    type: 动漫	
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2319&subgroupid=376
+    source: Mikan	
+    regex: [1080P][简体]
+    path: ./downloads/魔法科高中的劣等生/
