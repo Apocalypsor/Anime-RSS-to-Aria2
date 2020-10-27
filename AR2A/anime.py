@@ -178,7 +178,17 @@ class Anime:
 
     def send2Telegram(self, title, type, series):
         if self.url:
-            msg = "🌟 更新剧集：*" + title + "*\n\n💡 直达链接：" + self.url + series + "/\n\n#" + type + " #" + series
+            msg = (
+                "🌟 更新剧集：*"
+                + title
+                + "*\n\n💡 直达链接："
+                + self.url
+                + series
+                + "/\n\n#"
+                + type
+                + " #"
+                + series
+            )
         else:
             msg = "🌟 更新剧集：*" + title + "*\n#" + type + " #" + series
 
