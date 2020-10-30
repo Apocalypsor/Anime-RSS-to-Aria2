@@ -17,3 +17,9 @@ Anime:
     source: Mikan
     regex: .+1080p.+
     path: /downloads/寒蝉鸣泣之时/
+  - series: 试着用土下座来拜托她们吧
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2308&subgroupid=552
+    source: Mikan
+    regex: .+1080p.+
+    path: /downloads/试着用土下座来拜托她们吧/
