@@ -1,11 +1,8 @@
 name: Anime RSS to Aria2
 
 on:
-  watch:
-    types: [started]
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+  
   schedule:
     - cron: 0 * * * *
    
