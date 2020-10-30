@@ -11,3 +11,9 @@ telegrambot:
 base_url: https://gdindex.apocalypse.workers.dev/
 
 Anime:
+  - series:  寒蝉鸣泣
+    type:  动漫	
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2299&subgroupid=552
+    source: Mikan	
+    regex: .+1080p.+
+    path: /downloads/寒蝉鸣泣之时/
