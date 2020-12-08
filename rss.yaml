@@ -17,3 +17,9 @@ Anime:
     source: Mikan
     regex: .+1080p.+
     path: /downloads/寒蝉鸣泣之时/
+  - series: 进击的巨人
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2335&subgroupid=552
+    source: Mikan
+    regex: .+1080p.+
+    path: /downloads/进击的巨人/
