@@ -5,7 +5,7 @@ aria2:
 
 telegrambot:
   enable: true
-  token: 834022545:AAH-LPPWlFOCq868ai0S9kH_n2arEoAkqk4
+  token: 1269966915:AAHU3IZ47Wuemd1G3uIvmgqmKwH4RFM_nL4
   chat_id: -1001259296192
 
 base_url: https://gd.akz.me/Upload/
