@@ -1,8 +1,8 @@
-name: Anime RSS to Aria2
+name: Subscribe
 
 on:
   workflow_dispatch:
-  
+    
   schedule:
     - cron: 0 * * * *
    
