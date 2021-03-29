@@ -1,0 +1,36 @@
+name: Subscribe
+
+on:
+  workflow_dispatch:
+    
+  schedule:
+    - cron: 0 * * * *
+   
+jobs:
+  AR2A:
+    name: Anime RSS to Aria2
+    runs-on: ubuntu-latest 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies 
+      run: |
+        pip install pipenv
+        pipenv lock --requirements > requirements.txt
+        pip install -r requirements.txt
+    - name: Download
+      env:
+        ARIA2_HOST: ${{ secrets.ARIA2_HOST }}
+        ARIA2_PORT: ${{ secrets.ARIA2_PORT }}
+        ARIA2_SECRET: ${{ secrets.ARIA2_SECRET }}
+        TELEGRAM_ENABLE: ${{ secrets.TELEGRAM_ENABLE }}
+        TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        BASE_URL: ${{ secrets.BASE_URL }}
+        DATABASE: ${{ secrets.DATABASE }}
+      run: |
+        python ./main.py || echo 'Check your configuration.'

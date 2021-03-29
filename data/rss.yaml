@@ -1,0 +1,27 @@
+aria2:
+  host:
+  port:
+  secret:
+
+telegrambot:
+  enable:
+  token:
+  chat_id:
+
+mongo_url:
+
+base_url:
+
+Anime:
+  - series: 进击的巨人
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2335&subgroupid=552
+    source: Mikan
+    regex: .+1080p.+
+    path: /downloads/进击的巨人/
+  - series: 回复术士的重来人生
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2385&subgroupid=21
+    source: Mikan
+    regex: .+GB.+1920X1080.+完全回复版.+
+    path: /downloads/回复术士的重来人生/
