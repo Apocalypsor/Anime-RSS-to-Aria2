@@ -29,5 +29,5 @@ Anime:
     type: 动漫
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2454&subgroupid=552
     source: Mikan
-    regex: .+S02.+1080p.+
+    regex: .+1080p.+
     path: /downloads/Vivy/
