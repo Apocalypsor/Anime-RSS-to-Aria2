@@ -13,9 +13,21 @@ mongo_url:
 base_url:
 
 Anime:
-  - series: 回复术士的重来人生
+  - series: 如果究极进化的完全沉浸RPG比现实还更像垃圾游戏的话
     type: 动漫
-    url: https://mikanani.me/RSS/Bangumi?bangumiId=2385&subgroupid=21
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2434&subgroupid=552
     source: Mikan
-    regex: .+GB.+1920X1080.+完全回复版.+
-    path: /downloads/回复术士的重来人生/
+    regex: .+1080p.+
+    path: /downloads/如果究极进化的完全沉浸RPG比现实还更像垃圾游戏的话/
+  - series: MEGALO-BOX
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2450&subgroupid=552
+    source: Mikan
+    regex: .+S02.+1080p.+
+    path: /downloads/MEGALO-BOX/
+  - series: Vivy
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2454&subgroupid=552
+    source: Mikan
+    regex: .+S02.+1080p.+
+    path: /downloads/Vivy/
