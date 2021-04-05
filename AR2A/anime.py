@@ -98,7 +98,7 @@ class Anime:
 
                             self.db["Download"].insert_one(down)
                             if self.telegram:
-                                self._sendToTelegram(r["title"], a["type"], a["series"])
+                                self._sendToTelegram(r["title"], a["type"], a["series"], a["path"])
 
     # 需配合 https://rssbg.now.sh 食用
     def _readRarbg(self, a):
@@ -124,7 +124,7 @@ class Anime:
 
                         self.db["Download"].insert_one(down)
                         if self.telegram:
-                            self._sendToTelegram(r["title"], a["type"], a["series"])
+                            self._sendToTelegram(r["title"], a["type"], a["series"], a["path"])
             except Exception:
                 pass
 
@@ -160,21 +160,21 @@ class Anime:
                 finally:
                     os.remove("tmp.torrent")
 
-    def _sendToTelegram(self, title, type, series):
+    def _sendToTelegram(self, title, type, series, path):
         if self.url:
             msg = (
                 "🌟 更新剧集：*"
                 + title
                 + "*\n\n💡 直达链接："
                 + self.url
-                + series
+                + path.strip("/").split("/")[-1]
                 + "/\n\n#"
                 + type
                 + " #"
-                + series
+                + series.strip(" ")[0]
             )
         else:
-            msg = "🌟 更新剧集：*" + title + "*\n#" + type + " #" + series
+            msg = "🌟 更新剧集：*" + title + "*\n#" + type + " #" + series.strip(" ")[0]
 
         url = "https://api.telegram.org/bot" + self.telegram["token"] + "/sendMessage"
         payload = {
