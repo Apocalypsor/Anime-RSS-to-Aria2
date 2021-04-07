@@ -21,7 +21,7 @@ class Anime:
         env = os.environ
 
         with open(self.config_file, "r", encoding="UTF-8") as f:
-            config = yaml.load(f, Loader=yaml.FullLoader)
+            config = yaml.load(f, Loader=yaml.SafeLoader)
             if env["ARIA2_HOST"]:
                 self.aria2 = aria2p.API(
                     aria2p.Client(
@@ -63,6 +63,7 @@ class Anime:
                 mongo_url = config["mongo_url"]
 
         with open(self.rss_file, "r", encoding="UTF-8") as f:
+            config = yaml.load(f, Loader=yaml.SafeLoader)
             self.rss = config["Anime"]
 
         client = MongoClient(mongo_url)
