@@ -1,33 +1,25 @@
-aria2:
-  host:
-  port:
-  secret:
-
-telegrambot:
-  enable:
-  token:
-  chat_id:
-
-mongo_url:
-
-base_url:
-
 Anime:
   - series: 如果究极进化的完全沉浸RPG比现实还更像垃圾游戏的话
     type: 动漫
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2434&subgroupid=552
     source: Mikan
-    regex: .+1080p.+
-    path: /downloads/如果究极进化的完全沉浸RPG比现实还更像垃圾游戏的话/
-  - series: MEGALO-BOX
-    type: 动漫
-    url: https://mikanani.me/RSS/Bangumi?bangumiId=2450&subgroupid=552
-    source: Mikan
-    regex: .+S02.+1080p.+
-    path: /downloads/MEGALO-BOX/
-  - series: Vivy
+    regex: .+ [0-9]+ .+1080p.+
+    path: /downloads/番剧/连载中/如果究极进化的完全沉浸RPG比现实还更像垃圾游戏的话/
+  - series: Vivy - Fluorite Eye's Song
     type: 动漫
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2454&subgroupid=552
     source: Mikan
-    regex: .+1080p.+
-    path: /downloads/Vivy/
+    regex: .+ [0-9]+ .+1080p.+
+    path: /downloads/番剧/连载中/Vivy/
+  - series: 剃须。然后捡到女高中生
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2442&subgroupid=552
+    source: Mikan
+    regex: .+ [0-9]+ .+1080p.+
+    path: /downloads/番剧/连载中/剃须。然后捡到女高中生/
+  - series: 派遣战斗员！
+    type: 动漫
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2433&subgroupid=552
+    source: Mikan
+    regex: .+ [0-9]+ .+1080p.+
+    path: /downloads/番剧/连载中/派遣战斗员！/

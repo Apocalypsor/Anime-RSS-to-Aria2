@@ -12,38 +12,36 @@ from pymongo import MongoClient
 
 
 class Anime:
-    def __init__(self, rss_file):
+    def __init__(self, rss_file, config_file):
         self.rss_file = rss_file
+        self.config_file = config_file
         self.loadConf()
-
 
     def loadConf(self):
         env = os.environ
 
-        with open(self.rss_file, "r", encoding="UTF-8") as f:
+        with open(self.config_file, "r", encoding="UTF-8") as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
             if env["ARIA2_HOST"]:
                 self.aria2 = aria2p.API(
                     aria2p.Client(
-                        host=env["ARIA2_HOST"], 
-                        port=env["ARIA2_PORT"], 
-                        secret=env["ARIA2_SECRET"]
-                        )
+                        host=env["ARIA2_HOST"],
+                        port=env["ARIA2_PORT"],
+                        secret=env["ARIA2_SECRET"],
                     )
+                )
 
             elif config["aria2"]["host"]:
                 self.aria2 = aria2p.API(
                     aria2p.Client(
                         host=config["aria2"]["host"],
                         port=config["aria2"]["port"],
-                        secret=config["aria2"]["secret"]
-                        )
+                        secret=config["aria2"]["secret"],
                     )
+                )
 
             else:
                 self.aria2 = None
-
-            self.rss = config["Anime"]
 
             self.telegram = {}
             if env["TELEGRAM_ENABLE"]:
@@ -64,6 +62,9 @@ class Anime:
             else:
                 mongo_url = config["mongo_url"]
 
+        with open(self.rss_file, "r", encoding="UTF-8") as f:
+            self.rss = config["Anime"]
+
         client = MongoClient(mongo_url)
         self.db = client["Anime"]
 
@@ -77,7 +78,7 @@ class Anime:
             elif s["source"].lower() == "rarbg":
                 self._readRarbg(s)
 
-    # RSS来源: https://mikanani.me/
+    # RSS source: https://mikanani.me/
     def _readMikan(self, a):
         entries = feedparser.parse(a["url"])["entries"]
         regex = re.compile(a["regex"])
@@ -98,9 +99,11 @@ class Anime:
 
                             self.db["Download"].insert_one(down)
                             if self.telegram:
-                                self._sendToTelegram(r["title"], a["type"], a["series"], a["path"])
+                                self._sendToTelegram(
+                                    r["title"], a["type"], a["series"], a["path"]
+                                )
 
-    # 需配合 https://rssbg.now.sh 食用
+    # RSS source: https://rssbg.now.sh
     def _readRarbg(self, a):
         entries = feedparser.parse(
             a["url"],
@@ -124,7 +127,9 @@ class Anime:
 
                         self.db["Download"].insert_one(down)
                         if self.telegram:
-                            self._sendToTelegram(r["title"], a["type"], a["series"], a["path"])
+                            self._sendToTelegram(
+                                r["title"], a["type"], a["series"], a["path"]
+                            )
             except Exception:
                 pass
 

@@ -6,9 +6,11 @@ from AR2A.anime import Anime
 
 
 def main():
-    rssFile = "data/rss.yaml"
+    rss_file = "data/rss.yaml"
 
-    ani = Anime(rssFile)
+    config_file = "data/config.yaml"
+
+    ani = Anime(rss_file, config_file)
 
     ani.readRSS(send=True)
 
