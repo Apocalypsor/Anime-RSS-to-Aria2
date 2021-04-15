@@ -23,18 +23,26 @@ class Anime:
         with open(self.config_file, "r", encoding="UTF-8") as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)
             if env["ARIA2_HOST"]:
+                a_host = env["ARIA2_HOST"]
+                if not a_host.startswith("http") or not a_host.startswith("HTTP"):
+                    a_host = "http://" + a_host
+
                 self.aria2 = aria2p.API(
                     aria2p.Client(
-                        host=env["ARIA2_HOST"],
+                        host=a_host,
                         port=env["ARIA2_PORT"],
                         secret=env["ARIA2_SECRET"],
                     )
                 )
 
             elif config["aria2"]["host"]:
+                a_host = config["aria2"]["host"]
+                if not a_host.startswith("http") or not a_host.startswith("HTTP"):
+                    a_host = "http://" + a_host
+
                 self.aria2 = aria2p.API(
                     aria2p.Client(
-                        host=config["aria2"]["host"],
+                        host=a_host,
                         port=config["aria2"]["port"],
                         secret=config["aria2"]["secret"],
                     )
