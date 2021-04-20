@@ -6,13 +6,13 @@ from AR2A.anime import Anime
 
 
 def main():
-    if env["RSS_FILE"]:
-        rss_file = "data/" + env["RSS_FILE"]
+    if os.environ["RSS_FILE"]:
+        rss_file = "data/" + os.environ["RSS_FILE"]
     else:
         rss_file = "data/rss.yaml"
     
-    if env["CONF_FILE"]:
-        config_file = "data/" + env["CONF_FILE"]
+    if os.environ["CONF_FILE"]:
+        config_file = "data/" + os.environ  ["CONF_FILE"]
     else:
         config_file = "data/config.yaml"
 
