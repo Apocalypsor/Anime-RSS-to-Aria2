@@ -27,5 +27,5 @@ Anime:
     type: 动漫
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2443&subgroupid=203
     source: Mikan
-    regex: .+\[[0-9]+\].+1080p.+简体内嵌.+
+    regex: .+\[[0-9]+\].+1080p@60FPS.+简体内嵌.+
     path: /downloads/番剧/连载中/异世界魔王与召唤少女的奴隶魔术/
