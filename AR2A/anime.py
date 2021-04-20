@@ -22,7 +22,7 @@ class Anime:
 
         with open(self.config_file, "r", encoding="UTF-8") as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)
-            if env["ARIA2_HOST"]:
+            if env.get("ARIA2_HOST"):
                 a_host = env["ARIA2_HOST"]
                 if not a_host.startswith("http") or not a_host.startswith("HTTP"):
                     a_host = "http://" + a_host
@@ -52,20 +52,20 @@ class Anime:
                 self.aria2 = None
 
             self.telegram = {}
-            if env["TELEGRAM_ENABLE"]:
+            if env.get("TELEGRAM_ENABLE"):
                 self.telegram["token"] = env["TELEGRAM_TOKEN"]
                 self.telegram["chat_id"] = env["TELEGRAM_CHAT_ID"]
             elif config["telegrambot"]["enable"]:
                 self.telegram = config["telegrambot"]
 
-            if env["BASE_URL"]:
+            if env.get("BASE_URL"):
                 self.url = env["BASE_URL"]
             elif config["base_url"]:
                 self.url = config["base_url"]
             else:
                 self.url = None
 
-            if env["DATABASE"]:
+            if env.get("DATABASE"):
                 mongo_url = env["DATABASE"]
             else:
                 mongo_url = config["mongo_url"]
