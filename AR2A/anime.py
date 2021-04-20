@@ -185,10 +185,10 @@ class Anime:
                 + "/\n\n#"
                 + type
                 + " #"
-                + series.strip(" ")[0]
+                + series.split(" ")[0]
             )
         else:
-            msg = "🌟 更新剧集：*" + title + "*\n#" + type + " #" + series.strip(" ")[0]
+            msg = "🌟 更新剧集：*" + title + "*\n#" + type + " #" + series.split(" ")[0]
 
         url = "https://api.telegram.org/bot" + self.telegram["token"] + "/sendMessage"
         payload = {
