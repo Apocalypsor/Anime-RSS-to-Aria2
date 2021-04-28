@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    timezone: Asia/Shanghai
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: sqlalchemy
+    versions:
+    - 1.4.3
+  - dependency-name: websocket-client
+    versions:
+    - 0.58.0
