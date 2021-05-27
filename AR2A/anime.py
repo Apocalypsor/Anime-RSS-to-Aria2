@@ -4,10 +4,10 @@ import os
 import re
 import time
 
+import aria2p
 import feedparser
 import requests
 import yaml
-import aria2p
 from pymongo import MongoClient
 
 
@@ -30,7 +30,7 @@ class Anime:
                 self.aria2 = aria2p.API(
                     aria2p.Client(
                         host=a_host,
-                        port=env["ARIA2_PORT"],
+                        port=int(env["ARIA2_PORT"]),
                         secret=env["ARIA2_SECRET"],
                     )
                 )
@@ -58,17 +58,8 @@ class Anime:
             elif config["telegrambot"]["enable"]:
                 self.telegram = config["telegrambot"]
 
-            if env.get("BASE_URL"):
-                self.url = env["BASE_URL"]
-            elif config["base_url"]:
-                self.url = config["base_url"]
-            else:
-                self.url = None
-
-            if env.get("DATABASE"):
-                mongo_url = env["DATABASE"]
-            else:
-                mongo_url = config["mongo_url"]
+            self.url = env.get("BASE_URL") or config.get("base_url") or None
+            mongo_url = env.get("DATABASE") or config["mongo_url"]
 
         with open(self.rss_file, "r", encoding="UTF-8") as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)

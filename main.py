@@ -10,9 +10,9 @@ def main():
         rss_file = "data/" + os.getenv("RSS_FILE")
     else:
         rss_file = "data/rss.yaml"
-    
+
     if os.getenv("CONF_FILE"):
-        config_file = "data/" + os.getenv  ("CONF_FILE")
+        config_file = "data/" + os.getenv("CONF_FILE")
     else:
         config_file = "data/config.yaml"
 
