@@ -1,7 +1,1 @@
 Anime:
-  - series: 剃须。然后捡到女高中生
-    type: 动漫
-    url: https://mikanani.me/RSS/Bangumi?bangumiId=2442&subgroupid=552
-    source: Mikan
-    regex: .+ [0-9]+ .+1080p.+
-    path: /downloads/番剧/连载中/剃须。然后捡到女高中生/
