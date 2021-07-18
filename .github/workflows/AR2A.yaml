@@ -24,8 +24,7 @@ jobs:
         id: cache-pipenv
         with:
           path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
-          restore-keys: ${{ runner.os }}-pipenv-
+          key: ${{ runner.os }}-pipenv-v1-${{ hashFiles('Pipfile.lock') }}
       - name: Install dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: pipenv install
