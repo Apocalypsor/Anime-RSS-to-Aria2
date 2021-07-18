@@ -1,0 +1,13 @@
+Template: |
+  🌟 更新剧集：*{{ title }}*
+
+  🎯 直达链接：[点击此处]({{ link }})
+
+  \#{{ type }}  \#{{ series }}
+
+Anime:
+  - series: Love Live! Superstar!!
+    type: 动漫订阅
+    url: https://mikanani.me/RSS/Bangumi?bangumiId=2509&subgroupid=552
+    regex: .+ [0-9]+ .+1080p.+
+    path: /downloads/番剧/连载中/LoveLive!Superstar!!/

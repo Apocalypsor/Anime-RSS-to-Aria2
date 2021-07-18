@@ -1,0 +1,13 @@
+aria2:
+  host:
+  port:
+  secret:
+
+telegram:
+  enable:
+  token:
+  chat_id:
+
+mongo_url:
+
+base_url:
