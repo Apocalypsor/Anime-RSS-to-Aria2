@@ -4,6 +4,8 @@ import os
 import re
 import time
 
+from urllib.parse import quote
+
 import aria2p
 import feedparser
 import requests
@@ -134,7 +136,7 @@ class Anime:
             "title": escapeText(title),
             "type": escapeText(type),
             "series": escapeText(series),
-            "link": self.url.rstrip("/") + "/" + path.strip("/").split("/")[-1]
+            "link": self.url.rstrip("/") + "/" + quote(path.strip("/").split("/")[-1])
             if self.url
             else "",
         }
