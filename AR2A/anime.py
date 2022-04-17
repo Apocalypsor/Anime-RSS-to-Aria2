@@ -136,7 +136,7 @@ class Anime:
             "title": escapeText(title),
             "type": escapeText(type),
             "series": escapeText(series),
-            "link": self.url.rstrip("/") + "/" + quote(path.strip("/").split("/")[-1])
+            "link": self.url.rstrip("/") + "/" + quote(path.strip("/").split("/")[-1]) + "/"
             if self.url
             else "",
         }
