@@ -13,6 +13,7 @@ PyYAML = "*"
 pymongo = "*"
 dnspython = "*"
 jinja2 = "*"
+fastbencode = "*"
 
 [requires]
 python_version = "3"

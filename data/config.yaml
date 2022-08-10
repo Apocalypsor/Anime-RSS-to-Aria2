@@ -1,7 +1,13 @@
+enabled:
+
 aria2:
   host:
   port:
   secret:
+
+pikpak:
+  username:
+  password:
 
 telegram:
   enable:

@@ -3,45 +3,32 @@
 import os
 import re
 import time
-
 from urllib.parse import quote
 
-import aria2p
 import feedparser
 import requests
 from jinja2 import Template
 from pymongo import MongoClient
 
-from .utils import default_user_agent, escapeText, postData
+from .downloader.aria2 import Aria2
+from .downloader.pikpak import PikPak
+from .utils import default_user_agent, escapeText
 
 
 class Anime:
     def __init__(self, config, rss):
         env = os.environ
 
-        if env.get("ARIA2_HOST"):
-            a_host = env["ARIA2_HOST"]
-            if not a_host.startswith("http"):
-                a_host = "http://" + a_host
-        else:
-            a_host = config["aria2"]["host"]
-            if not a_host.startswith("http"):
-                a_host = "http://" + a_host
+        enabled = (env["ENABLED"] or config.get("enabled") or "aria2").split(",")
+        self.enable_aria2 = "aria2" in enabled
+        self.enable_pikpak = "pikpak" in enabled
 
-        a_port = int(env.get("ARIA2_PORT") or config["aria2"]["port"] or 6800)
-
-        a_secret = env.get("ARIA2_SECRET") or config["aria2"]["secret"]
-
-        if a_host:
-            self.aria2 = aria2p.API(
-                aria2p.Client(
-                    host=a_host,
-                    port=a_port,
-                    secret=a_secret,
-                )
-            )
-        else:
-            self.aria2 = None
+        if self.enable_aria2:
+            print("启用Aria2下载器")
+            self.aria2 = Aria2(config["aria2"])
+        if self.enable_pikpak:
+            print("启用PikPak下载器")
+            self.pikpak = PikPak(config["pikpak"])
 
         self.telegram = {}
         if env.get("TELEGRAM_ENABLE"):
@@ -63,18 +50,18 @@ class Anime:
         if send != None:
             self.send = send
 
-        for s in self.rss:
-            self.handleRSS(s)
+        for item in self.rss:
+            self.handleRSS(item)
 
     # RSS source:
     #   1. https://mikanani.me/
     #   2. https://rssbg.now.sh
-    def handleRSS(self, a):
+    def handleRSS(self, item):
         entries = feedparser.parse(
-            a["url"],
+            item["url"],
             request_headers={"user-agent": default_user_agent},
         )["entries"]
-        regex = re.compile(a["regex"])
+        regex = re.compile(item["regex"])
 
         for r in entries:
             if regex.match(r["title"]) and not self.db["Download"].find_one(
@@ -87,9 +74,9 @@ class Anime:
 
                 download_link = download_link or r["link"]
 
-                if self.sendToAria2(a["path"], download_link):
+                if self.sendToDownloader(download_link, item["path"]):
                     down = {
-                        "series": a["series"],
+                        "series": item["series"],
                         "title": r["title"],
                         "link": download_link,
                         "create_time": time.time(),
@@ -98,45 +85,32 @@ class Anime:
                     self.db["Download"].insert_one(down)
                     if self.telegram:
                         self.sendToTelegram(
-                            r["title"], a["type"], a["series"], a["path"]
+                            r["title"], item["type"], item["series"], item["path"]
                         )
 
-    def sendToAria2(self, path, url):
+    def sendToDownloader(self, url, path):
         if not self.send:
-            print("未添加Aria2客户端或仅作为测试！链接为: ", url)
+            print("未添加下载客户端或仅作为测试！链接为: ", url)
             return False
 
         else:
-            if url.startswith("magnet:?xt="):
-                try:
-                    self.aria2.add_magnet(url, options={"dir": path})
-                    print("添加成功 Magnet: ", url)
-                    return True
-                except Exception as e:
-                    print("添加失败 Magnet: ", url, e)
-                    return False
+            added = False
+            if self.enable_aria2 and self.aria2.download(url, path):
+                added = True
+            if self.enable_pikpak and self.pikpak.download(url, path):
+                added = True
 
-            else:
-                r = requests.get(url)
-                with open("tmp.torrent", "wb") as f:
-                    f.write(r.content)
-
-                try:
-                    self.aria2.add_torrent("tmp.torrent", options={"dir": path})
-                    print("添加成功 Torrent: ", url)
-                    return True
-                except Exception as e:
-                    print("添加失败 Torrent: ", url, e)
-                    return False
-                finally:
-                    os.remove("tmp.torrent")
+            return added
 
     def sendToTelegram(self, title, type, series, path):
         args = {
             "title": escapeText(title),
             "type": escapeText(type),
             "series": escapeText(series),
-            "link": self.url.rstrip("/") + "/" + quote(path.strip("/").split("/")[-1]) + "/"
+            "link": self.url.rstrip("/")
+                    + "/"
+                    + quote(path.strip("/").split("/")[-1])
+                    + "/"
             if self.url
             else "",
         }
@@ -150,7 +124,7 @@ class Anime:
             "parse_mode": "MarkdownV2",
         }
 
-        r = postData(url, data=payload)
+        r = requests.post(url, data=payload)
 
         if r.json().get("ok"):
             print(title + " 已成功发送到Telegram!")

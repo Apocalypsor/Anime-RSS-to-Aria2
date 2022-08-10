@@ -23,6 +23,7 @@ jobs:
         run: pipenv install
       - name: Download
         env:
+          ENABLED: ${{ secrets.ENABLED }}
           ARIA2_HOST: ${{ secrets.ARIA2_HOST }}
           ARIA2_PORT: ${{ secrets.ARIA2_PORT }}
           ARIA2_SECRET: ${{ secrets.ARIA2_SECRET }}
