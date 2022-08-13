@@ -20,7 +20,9 @@ jobs:
       - name: Install pipenv
         run: python -m pip install --upgrade pipenv wheel
       - name: Install dependencies
-        run: pipenv install
+        run: |
+          pipenv requirements > requirements.txt
+          pip install -r requirements.txt
       - name: Download
         env:
           ENABLED: ${{ secrets.ENABLED }}
@@ -35,4 +37,4 @@ jobs:
           RSS_CONFIG: ${{ secrets.RSS_CONFIG }}
           AUTHORIZATION_TOKEN: ${{ secrets.AUTHORIZATION_TOKEN }}
         run: |
-          pipenv run python ./main.py || echo 'Check your configuration.'
+          python ./main.py || echo 'Check your configuration.'
