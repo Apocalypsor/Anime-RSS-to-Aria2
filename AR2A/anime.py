@@ -62,6 +62,8 @@ class Anime:
             request_headers={"user-agent": default_user_agent},
         )["entries"]
         regex = re.compile(item["regex"])
+        file_regex = item["fileRegex"] or None
+        file_target = item["fileTarget"] or None
 
         for r in entries:
             if regex.match(r["title"]) and not self.db["Download"].find_one(
@@ -74,7 +76,10 @@ class Anime:
 
                 download_link = download_link or r["link"]
 
-                if self.sendToDownloader(download_link, item["path"]):
+                file_name = None
+                if file_regex is not None:
+                    file_name = re.sub(file_regex, file_target, r["title"])
+                if self.sendToDownloader(download_link, item["path"], file_name):
                     down = {
                         "series": item["series"],
                         "title": r["title"],
@@ -88,14 +93,14 @@ class Anime:
                             r["title"], item["type"], item["series"], item["path"]
                         )
 
-    def sendToDownloader(self, url, path):
+    def sendToDownloader(self, url, path, file_name):
         if not self.send:
             print("未添加下载客户端或仅作为测试！链接为: ", url)
             return False
 
         else:
             added = False
-            if self.enable_aria2 and self.aria2.download(url, path):
+            if self.enable_aria2 and self.aria2.download(url, path, file_name):
                 added = True
             if self.enable_pikpak and self.pikpak.download(url, path):
                 added = True

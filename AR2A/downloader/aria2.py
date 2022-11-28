@@ -39,10 +39,13 @@ class Aria2:
 
         return False
 
-    def download(self, url, path):
+    def download(self, url, path, file_name):
         if url.startswith("magnet:?xt="):
             try:
-                self.aria2.add_magnet(url, options={"dir": path})
+                if file_name is not None:
+                    self.aria2.add_magnet(url, options={"dir": path, "index-out": '1=' + file_name})
+                else:
+                    self.aria2.add_magnet(url, options={"dir": path})
                 print("Aria2 添加成功 Magnet: ", url)
                 return True
             except Exception as e:
@@ -55,7 +58,10 @@ class Aria2:
                 f.write(r.content)
 
             try:
-                self.aria2.add_torrent("tmp.torrent", options={"dir": path})
+                if file_name is not None:
+                    self.aria2.add_torrent("tmp.torrent", options={"dir": path, "index-out": '1=' + file_name})
+                else:
+                    self.aria2.add_torrent("tmp.torrent", options={"dir": path})
                 print("Aria2 添加成功 Torrent: ", url)
                 return True
             except Exception as e:

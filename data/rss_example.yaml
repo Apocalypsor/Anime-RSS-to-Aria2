@@ -11,3 +11,5 @@ Anime:
     url: https://mikanani.me/RSS/Bangumi?bangumiId=2509&subgroupid=552
     regex: .+ [0-9]+ .+1080p.+
     path: /downloads/番剧/连载中/LoveLive!Superstar!!/
+    fileRegex: (\[\S+\]\s)([^-]+)(\-\s)(\d+)(.+)
+    fileTarget: \2.E\4.mp4
