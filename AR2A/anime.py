@@ -17,6 +17,7 @@ from .utils import default_user_agent, escapeText
 
 class Anime:
     def __init__(self, config, rss):
+        self.send = None
         env = os.environ
 
         enabled = (env["ENABLED"] or config.get("enabled") or "aria2").split(",")
@@ -47,7 +48,7 @@ class Anime:
         self.db = client["Anime"]
 
     def readRSS(self, send=None):
-        if send != None:
+        if send is not None:
             self.send = send
 
         for item in self.rss:
@@ -102,17 +103,12 @@ class Anime:
 
             return added
 
-    def sendToTelegram(self, title, type, series, path):
+    def sendToTelegram(self, title, item_type, series, path):
         args = {
             "title": escapeText(title),
-            "type": escapeText(type),
+            "type": escapeText(item_type),
             "series": escapeText(series),
-            "link": self.url.rstrip("/")
-                    + "/"
-                    + quote(path.strip("/").split("/")[-1])
-                    + "/"
-            if self.url
-            else "",
+            "link": f"{self.url.rstrip('/')}/{quote(path.strip('/').split('/')[-1])}/" if self.url else "",
         }
 
         msg = self.template.render(args)

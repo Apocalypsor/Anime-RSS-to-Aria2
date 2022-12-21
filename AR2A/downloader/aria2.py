@@ -8,36 +8,18 @@ class Aria2:
     def __init__(self, config):
         env = os.environ
 
-        if env.get("ARIA2_HOST"):
-            self.a_host = env["ARIA2_HOST"]
-            if not self.a_host.startswith("http"):
-                self.a_host = "http://" + self.a_host
-        else:
-            self.a_host = config["aria2"]["host"]
-            if not self.a_host.startswith("http"):
-                self.a_host = "http://" + self.a_host
+        a_host = env["ARIA2_HOST"] or config["aria2"]["host"]
+        if a_host and not a_host.startswith("http"):
+            a_host = "http://" + a_host
 
-        self.a_port = int(env.get("ARIA2_PORT") or config["aria2"]["port"] or 6800)
-
-        self.a_secret = env.get("ARIA2_SECRET") or config["aria2"]["secret"]
+        a_port = int(env.get("ARIA2_PORT") or config["aria2"]["port"] or 6800)
+        a_secret = env.get("ARIA2_SECRET") or config["aria2"]["secret"]
 
         self.aria2 = None
-        if self.valid():
-            self.aria2 = aria2p.API(
-                aria2p.Client(
-                    host=self.a_host,
-                    port=self.a_port,
-                    secret=self.a_secret,
-                )
-            )
+        if a_host and a_port:
+            self.aria2 = aria2p.API(aria2p.Client(host=a_host, port=a_port, secret=a_secret))
         else:
-            exit("Aria2 配置错误")
-
-    def valid(self):
-        if self.a_host and self.a_port:
-            return True
-
-        return False
+            exit("Aria2 未配置")
 
     def download(self, url, path):
         if url.startswith("magnet:?xt="):

@@ -16,13 +16,10 @@ class PikPak:
         self.username = env.get("PIKPAK_USERNAME") or config["pikpak"]["username"]
         self.password = env.get("PIKPAK_PASSWORD") or config["pikpak"]["password"]
         self.session = requests.Session()
-        if self.valid():
+        if self.username and self.password:
             self.login()
         else:
             exit("PikPak 账号信息不完整")
-
-    def valid(self):
-        return self.username is not None and self.password is not None
 
     def login(self):
         # 登录所需所有信息
