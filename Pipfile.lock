@@ -25,18 +25,18 @@
         },
         "aria2p": {
             "hashes": [
-                "sha256:c3c0a87958dacc6b3ad194b5320811baf1e593ddaf83542320d439f6a82f865d",
-                "sha256:e5a86d0bc306835cd42ff12aa8970a979d4b629966d1d089edbad5992ca47060"
+                "sha256:517667f7b38adde8826908d6b6fbbf862a3066a56415e0fd2fd3ba61dc9cd19d",
+                "sha256:bc0fbe71de360e01e3db4301c89052799e7c4f004ab62fdbaa6bc96d20f476da"
             ],
             "index": "pypi",
-            "version": "==0.11.2"
+            "version": "==0.11.3"
         },
         "certifi": {
             "hashes": [
                 "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3",
                 "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"
             ],
-            "index": "pypi",
+            "markers": "python_version >= '3.6'",
             "version": "==2022.12.7"
         },
         "charset-normalizer": {
