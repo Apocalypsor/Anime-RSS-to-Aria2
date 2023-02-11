@@ -1,5 +1,7 @@
 # Anime-RSS-to-Aria2
 
+# 推荐使用：https://github.com/EstrellaXD/Auto_Bangumi
+
 ## 环境变量列表
 
 | 配置文件项       | 环境变量         | 属性   | 默认值 | 说明                               |
